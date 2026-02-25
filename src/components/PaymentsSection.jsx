@@ -1,9 +1,9 @@
 import React from 'react'
 
-const fmt = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' })
 const fmtDateTime = s => new Date(s).toLocaleString('en-CA')
 
-export default function PaymentsSection({ payments = [] }) {
+export default function PaymentsSection({ payments = [], currency = 'USD' }) {
+  const fmt = new Intl.NumberFormat('en-US', { style: 'currency', currency })
   return (
     <div className="bg-white p-6 rounded-2xl shadow border">
       <div className="text-lg font-semibold mb-4">Payments</div>

@@ -81,10 +81,39 @@ export default function InvoiceDetails() {
 
   return (
     <div className="max-w-4xl mx-auto p-6 space-y-6">
-      <InvoiceHeader invoice={invoice} onArchive={onArchive} onRestore={onRestore} onOpenPayment={() => setModalOpen(true)} />
-      <LineItemsTable lines={invoice.lines} />
-      <TotalsSection total={invoice.total} amountPaid={invoice.amountPaid} balanceDue={invoice.balanceDue} status={invoice.status} />
-      <PaymentsSection payments={invoice.payments} />
+      <InvoiceHeader
+        invoice={invoice}
+        onArchive={onArchive}
+        onRestore={onRestore}
+        onOpenPayment={() => setModalOpen(true)}
+        onDownloadPdf={() => {
+          const token = localStorage.getItem('authToken')
+          const url = `${import.meta.env.VITE_API_BASE || 'http://localhost:4000'}/api/invoices/${id}/pdf`
+          fetch(url, { headers: { Authorization: `Bearer ${token}` } })
+            .then(r => r.blob())
+            .then(blob => {
+              const link = document.createElement('a')
+              link.href = URL.createObjectURL(blob)
+              link.download = `invoice-${invoice.invoiceNumber}.pdf`
+              document.body.appendChild(link)
+              link.click()
+              link.remove()
+            })
+        }}
+      />
+      <LineItemsTable lines={invoice.lines} currency={invoice.currency} />
+      <TotalsSection
+        currency={invoice.currency}
+        subtotal={invoice.subtotal}
+        taxRate={invoice.taxRate}
+        taxAmount={invoice.taxAmount}
+        total={invoice.total}
+        amountPaid={invoice.amountPaid}
+        balanceDue={invoice.balanceDue}
+        status={invoice.status}
+        overdue={invoice.overdue}
+      />
+      <PaymentsSection payments={invoice.payments} currency={invoice.currency} />
       <AddPaymentModal open={modalOpen} onClose={() => setModalOpen(false)} onSubmit={onAddPayment} disabled={invoice.isArchived || invoice.status === 'PAID' || paying} />
     </div>
   )

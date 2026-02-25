@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { createInvoice } from '../../../services/api.js'
 
 export default function CreateInvoice() {
-  const [header, setHeader] = useState({ invoiceNumber: '', customerName: '', issueDate: '', dueDate: '' })
+  const [header, setHeader] = useState({ invoiceNumber: '', customerName: '', issueDate: '', dueDate: '', taxRate: 0, currency: 'USD' })
   const [lines, setLines] = useState([{ description: '', quantity: 1, unitPrice: 0 }])
   const [error, setError] = useState('')
   const [saving, setSaving] = useState(false)
@@ -46,6 +46,13 @@ export default function CreateInvoice() {
           <input className="border rounded-lg px-3 py-2" placeholder="Customer Name" value={header.customerName} onChange={e => setHeader({ ...header, customerName: e.target.value })} />
           <input type="date" className="border rounded-lg px-3 py-2" placeholder="Issue Date" value={header.issueDate} onChange={e => setHeader({ ...header, issueDate: e.target.value })} />
           <input type="date" className="border rounded-lg px-3 py-2" placeholder="Due Date" value={header.dueDate} onChange={e => setHeader({ ...header, dueDate: e.target.value })} />
+          <input type="number" step="0.01" className="border rounded-lg px-3 py-2" placeholder="Tax Rate (%)" value={header.taxRate} onChange={e => setHeader({ ...header, taxRate: Number(e.target.value) })} />
+          <select className="border rounded-lg px-3 py-2" value={header.currency} onChange={e => setHeader({ ...header, currency: e.target.value })}>
+            <option>USD</option>
+            <option>EUR</option>
+            <option>GBP</option>
+            <option>INR</option>
+          </select>
         </div>
         <div className="bg-white border rounded-2xl p-6 shadow space-y-4">
           <div className="flex items-center justify-between">

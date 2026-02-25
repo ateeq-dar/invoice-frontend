@@ -1,8 +1,7 @@
 import React from 'react'
 
-const fmt = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' })
-
-export default function LineItemsTable({ lines = [] }) {
+export default function LineItemsTable({ lines = [], currency = 'USD' }) {
+  const fmt = new Intl.NumberFormat('en-US', { style: 'currency', currency })
   return (
     <div className="bg-white p-6 rounded-2xl shadow border">
       <div className="text-lg font-semibold mb-4">Line Items</div>
