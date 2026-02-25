@@ -28,5 +28,9 @@ export const getInvoice = id => api.get(`/api/invoices/${id}`).then(r => r.data)
 export const addPayment = (id, amount) => api.post(`/api/invoices/${id}/payments`, { amount }).then(r => r.data)
 export const archiveInvoice = id => api.post(`/api/invoices/${id}/archive`).then(r => r.data)
 export const restoreInvoice = id => api.post(`/api/invoices/${id}/restore`).then(r => r.data)
+export const listInvoices = () => api.get('/api/invoices').then(r => r.data)
+export const createInvoice = payload => api.post('/api/invoices', payload).then(r => r.data)
+export const updateInvoice = (id, payload) => api.put(`/api/invoices/${id}`, payload).then(r => r.data)
+export const getInvoiceByNumber = number => api.get(`/api/invoices/by-number/${encodeURIComponent(number)}`).then(r => r.data)
 
 export default api

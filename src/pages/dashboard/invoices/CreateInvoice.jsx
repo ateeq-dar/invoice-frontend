@@ -1,23 +1,46 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { createInvoice } from '../../../services/api.js'
 
 export default function CreateInvoice() {
   const [header, setHeader] = useState({ invoiceNumber: '', customerName: '', issueDate: '', dueDate: '' })
   const [lines, setLines] = useState([{ description: '', quantity: 1, unitPrice: 0 }])
+  const [error, setError] = useState('')
+  const [saving, setSaving] = useState(false)
+  const navigate = useNavigate()
 
   const addLine = () => setLines([...lines, { description: '', quantity: 1, unitPrice: 0 }])
   const removeLine = i => setLines(lines.filter((_, idx) => idx !== i))
   const updateLine = (i, key, val) => {
     const copy = [...lines]; copy[i] = { ...copy[i], [key]: val }; setLines(copy)
   }
-  const onSubmit = e => {
+  const onSubmit = async e => {
     e.preventDefault()
-    alert('UI-only: Hook to backend create endpoint later')
+    setError('')
+    if (!header.invoiceNumber || !header.customerName || !header.issueDate || !header.dueDate) {
+      setError('Fill all header fields')
+      return
+    }
+    try {
+      setSaving(true)
+      const payload = {
+        ...header,
+        lines: lines.map(l => ({ description: l.description, quantity: Number(l.quantity), unitPrice: Number(l.unitPrice) }))
+      }
+      const res = await createInvoice(payload)
+      navigate(`/dashboard/invoices/${res.id}`)
+    } catch (e2) {
+      setError(e2.message || 'Failed to create invoice')
+    } finally {
+      setSaving(false)
+    }
   }
 
   return (
     <div className="space-y-6">
       <div className="text-2xl font-semibold">Create Invoice</div>
       <form onSubmit={onSubmit} className="space-y-6">
+        {error && <div className="text-sm text-red-600">{error}</div>}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-white border rounded-2xl p-6 shadow">
           <input className="border rounded-lg px-3 py-2" placeholder="Invoice Number" value={header.invoiceNumber} onChange={e => setHeader({ ...header, invoiceNumber: e.target.value })} />
           <input className="border rounded-lg px-3 py-2" placeholder="Customer Name" value={header.customerName} onChange={e => setHeader({ ...header, customerName: e.target.value })} />
@@ -41,7 +64,7 @@ export default function CreateInvoice() {
           ))}
         </div>
         <div className="flex justify-end">
-          <button className="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700">Save</button>
+          <button disabled={saving} className="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 disabled:bg-gray-300">{saving ? 'Saving…' : 'Save'}</button>
         </div>
       </form>
     </div>
