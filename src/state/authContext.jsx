@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react'
+import { authMe, authSignIn, authSignUp, setAuthToken } from '../services/api.js'
 
 const AuthContext = createContext(null)
 
@@ -9,27 +10,33 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const token = localStorage.getItem('authToken')
     const u = localStorage.getItem('authUser')
-    if (token && u) setUser(JSON.parse(u))
+    if (token && u) {
+      setAuthToken(token)
+      setUser(JSON.parse(u))
+    }
     setLoading(false)
   }, [])
 
   const signIn = async (email, password) => {
-    const fakeUser = { id: 'u_1', email }
-    localStorage.setItem('authToken', 'demo-token')
-    localStorage.setItem('authUser', JSON.stringify(fakeUser))
-    setUser(fakeUser)
+    const { token, user } = await authSignIn(email, password)
+    localStorage.setItem('authToken', token)
+    localStorage.setItem('authUser', JSON.stringify(user))
+    setAuthToken(token)
+    setUser(user)
   }
 
   const signUp = async (email, password) => {
-    const fakeUser = { id: 'u_1', email }
-    localStorage.setItem('authToken', 'demo-token')
-    localStorage.setItem('authUser', JSON.stringify(fakeUser))
-    setUser(fakeUser)
+    const { token, user } = await authSignUp(email, password)
+    localStorage.setItem('authToken', token)
+    localStorage.setItem('authUser', JSON.stringify(user))
+    setAuthToken(token)
+    setUser(user)
   }
 
   const signOut = () => {
     localStorage.removeItem('authToken')
     localStorage.removeItem('authUser')
+    setAuthToken(null)
     setUser(null)
   }
 
