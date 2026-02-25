@@ -29,17 +29,19 @@ export default function SignIn() {
   }
 
   return (
-    <div>
-      <div className="text-2xl font-semibold mb-2">Sign in</div>
-      <div className="text-sm text-gray-600 mb-6">Welcome back</div>
-      {error && <div className="mb-3 text-sm text-red-600">{error}</div>}
-      <form onSubmit={onSubmit} className="space-y-4">
-        <input type="email" className="w-full border rounded-lg px-3 py-2" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
-        <input type="password" className="w-full border rounded-lg px-3 py-2" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
-        <button type="submit" disabled={loading} className="w-full px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 disabled:bg-gray-300">{loading ? 'Signing in…' : 'Sign in'}</button>
+    <div className="animate-fade-up">
+      <div className="mb-2 text-2xl font-semibold text-slate-100">Sign in</div>
+      <div className="mb-6 text-sm text-slate-400">Welcome back to your invoicing workspace</div>
+      {error && <div className="mb-3 rounded-lg border border-red-400/30 bg-red-500/10 px-3 py-2 text-sm text-red-300">{error}</div>}
+      <form onSubmit={onSubmit} className="animate-fade-up delay-1 space-y-4">
+        <input type="email" className="w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-slate-100 placeholder:text-slate-500 focus:border-cyan-400 focus:outline-none" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
+        <input type="password" className="w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-slate-100 placeholder:text-slate-500 focus:border-cyan-400 focus:outline-none" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
+        <button type="submit" disabled={loading} className="btn-primary w-full disabled:bg-slate-600 disabled:text-slate-300">
+          {loading ? 'Signing in...' : 'Sign in'}
+        </button>
       </form>
-      <div className="mt-4 text-sm">
-        Don’t have an account? <Link to="/auth/signup" className="text-blue-600 hover:underline">Sign up</Link>
+      <div className="mt-4 text-sm text-slate-300">
+        Do not have an account? <Link to="/auth/signup" className="text-cyan-300 hover:text-cyan-200">Sign up</Link>
       </div>
     </div>
   )

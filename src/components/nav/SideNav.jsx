@@ -6,7 +6,7 @@ function Item({ to, children }) {
     <NavLink
       to={to}
       className={({ isActive }) =>
-        `block px-4 py-2 rounded-lg border ${isActive ? 'bg-blue-600 text-white border-blue-600' : 'bg-white hover:bg-gray-50'}`
+        `block rounded-lg border px-4 py-2 text-sm transition ui-card-hover ${isActive ? 'border-cyan-400/50 bg-cyan-500/20 text-cyan-100' : 'border-slate-800 bg-slate-900/70 text-slate-200 hover:bg-slate-800'}`
       }
       end
     >
@@ -17,10 +17,10 @@ function Item({ to, children }) {
 
 export default function SideNav() {
   return (
-    <div className="space-y-2">
-      <div className="text-xs uppercase text-gray-500 px-1">Dashboard</div>
+    <div className="ui-card animate-pop space-y-2 rounded-2xl p-4">
+      <div className="px-1 text-xs uppercase tracking-wider text-slate-400">Dashboard</div>
       <Item to="/dashboard">Home</Item>
-      <div className="text-xs uppercase text-gray-500 px-1 mt-4">Invoices</div>
+      <div className="mt-4 px-1 text-xs uppercase tracking-wider text-slate-400">Invoices</div>
       <Item to="/dashboard/invoices">All Invoices</Item>
       <Item to="/dashboard/invoices/new">Create Invoice</Item>
     </div>

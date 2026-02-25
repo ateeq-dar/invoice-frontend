@@ -64,23 +64,25 @@ export default function InvoiceDetails() {
     }
   }
 
-  if (loading) return (
-    <div className="max-w-4xl mx-auto p-6 space-y-6">
-      <div className="h-32 rounded-2xl bg-white border shadow animate-pulse" />
-      <div className="h-48 rounded-2xl bg-white border shadow animate-pulse" />
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="h-28 rounded-2xl bg-white border shadow animate-pulse" />
-        <div className="h-28 rounded-2xl bg-white border shadow animate-pulse" />
-        <div className="h-28 rounded-2xl bg-white border shadow animate-pulse" />
+  if (loading) {
+    return (
+      <div className="mx-auto max-w-4xl space-y-6 p-2">
+        <div className="h-32 animate-pulse rounded-2xl border border-slate-800 bg-slate-900/80" />
+        <div className="h-48 animate-pulse rounded-2xl border border-slate-800 bg-slate-900/80" />
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+          <div className="h-28 animate-pulse rounded-2xl border border-slate-800 bg-slate-900/80" />
+          <div className="h-28 animate-pulse rounded-2xl border border-slate-800 bg-slate-900/80" />
+          <div className="h-28 animate-pulse rounded-2xl border border-slate-800 bg-slate-900/80" />
+        </div>
+        <div className="h-40 animate-pulse rounded-2xl border border-slate-800 bg-slate-900/80" />
       </div>
-      <div className="h-40 rounded-2xl bg-white border shadow animate-pulse" />
-    </div>
-  )
-  if (error) return <div className="p-6 text-red-600">{error}</div>
-  if (!invoice) return <div className="p-6">No invoice</div>
+    )
+  }
+  if (error) return <div className="rounded-lg border border-red-400/30 bg-red-500/10 p-4 text-red-300">{error}</div>
+  if (!invoice) return <div className="p-4 text-slate-300">No invoice</div>
 
   return (
-    <div className="max-w-4xl mx-auto p-6 space-y-6">
+    <div className="mx-auto max-w-4xl space-y-6 p-2">
       <InvoiceHeader
         invoice={invoice}
         onArchive={onArchive}
@@ -101,19 +103,25 @@ export default function InvoiceDetails() {
             })
         }}
       />
-      <LineItemsTable lines={invoice.lines} currency={invoice.currency} />
-      <TotalsSection
-        currency={invoice.currency}
-        subtotal={invoice.subtotal}
-        taxRate={invoice.taxRate}
-        taxAmount={invoice.taxAmount}
-        total={invoice.total}
-        amountPaid={invoice.amountPaid}
-        balanceDue={invoice.balanceDue}
-        status={invoice.status}
-        overdue={invoice.overdue}
-      />
-      <PaymentsSection payments={invoice.payments} currency={invoice.currency} />
+      <div className="animate-fade-up delay-1">
+        <LineItemsTable lines={invoice.lines} currency={invoice.currency} />
+      </div>
+      <div className="animate-fade-up delay-2">
+        <TotalsSection
+          currency={invoice.currency}
+          subtotal={invoice.subtotal}
+          taxRate={invoice.taxRate}
+          taxAmount={invoice.taxAmount}
+          total={invoice.total}
+          amountPaid={invoice.amountPaid}
+          balanceDue={invoice.balanceDue}
+          status={invoice.status}
+          overdue={invoice.overdue}
+        />
+      </div>
+      <div className="animate-fade-up delay-3">
+        <PaymentsSection payments={invoice.payments} currency={invoice.currency} />
+      </div>
       <AddPaymentModal open={modalOpen} onClose={() => setModalOpen(false)} onSubmit={onAddPayment} disabled={invoice.isArchived || invoice.status === 'PAID' || paying} />
     </div>
   )

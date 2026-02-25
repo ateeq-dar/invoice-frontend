@@ -32,24 +32,24 @@ export default function AddPaymentModal({ open, onClose, onSubmit, disabled }) {
   }
 
   return (
-    <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-      <div className="bg-white rounded-2xl p-6 w-full max-w-sm shadow-xl border">
-        <div className="text-lg font-semibold mb-4">Add Payment</div>
-        {error && <div className="mb-3 text-sm text-red-600">{error}</div>}
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
+      <div className="ui-card animate-pop w-full max-w-sm rounded-2xl p-6">
+        <div className="mb-4 text-lg font-semibold text-slate-100">Add Payment</div>
+        {error && <div className="mb-3 rounded-lg border border-red-400/30 bg-red-500/10 px-3 py-2 text-sm text-red-300">{error}</div>}
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="number"
             step="0.01"
             min="0"
-            className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-slate-100 focus:border-cyan-400 focus:outline-none"
             placeholder="Amount"
             value={amount}
             onChange={e => setAmount(e.target.value)}
           />
-          <div className="flex gap-3 justify-end">
-            <button type="button" onClick={onClose} disabled={submitting} className="px-4 py-2 rounded-lg border hover:bg-gray-50 disabled:opacity-50">Cancel</button>
-            <button type="submit" disabled={disabled || submitting} className="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 disabled:bg-gray-300">
-              {submitting ? 'Submitting…' : 'Submit'}
+          <div className="flex justify-end gap-3">
+            <button type="button" onClick={onClose} disabled={submitting} className="btn-secondary disabled:opacity-50">Cancel</button>
+            <button type="submit" disabled={disabled || submitting} className="btn-primary disabled:bg-slate-700 disabled:text-slate-400">
+              {submitting ? 'Submitting...' : 'Submit'}
             </button>
           </div>
         </form>

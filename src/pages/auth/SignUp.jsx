@@ -27,17 +27,19 @@ export default function SignUp() {
   }
 
   return (
-    <div>
-      <div className="text-2xl font-semibold mb-2">Sign up</div>
-      <div className="text-sm text-gray-600 mb-6">Create your account</div>
-      {error && <div className="mb-3 text-sm text-red-600">{error}</div>}
-      <form onSubmit={onSubmit} className="space-y-4">
-        <input type="email" className="w-full border rounded-lg px-3 py-2" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
-        <input type="password" className="w-full border rounded-lg px-3 py-2" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
-        <button type="submit" disabled={loading} className="w-full px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 disabled:bg-gray-300">{loading ? 'Signing up…' : 'Sign up'}</button>
+    <div className="animate-fade-up">
+      <div className="mb-2 text-2xl font-semibold text-slate-100">Sign up</div>
+      <div className="mb-6 text-sm text-slate-400">Create your workspace and start invoicing</div>
+      {error && <div className="mb-3 rounded-lg border border-red-400/30 bg-red-500/10 px-3 py-2 text-sm text-red-300">{error}</div>}
+      <form onSubmit={onSubmit} className="animate-fade-up delay-1 space-y-4">
+        <input type="email" className="w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-slate-100 placeholder:text-slate-500 focus:border-cyan-400 focus:outline-none" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
+        <input type="password" className="w-full rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-slate-100 placeholder:text-slate-500 focus:border-cyan-400 focus:outline-none" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
+        <button type="submit" disabled={loading} className="btn-primary w-full disabled:bg-slate-600 disabled:text-slate-300">
+          {loading ? 'Creating account...' : 'Sign up'}
+        </button>
       </form>
-      <div className="mt-4 text-sm">
-        Already have an account? <Link to="/auth/signin" className="text-blue-600 hover:underline">Sign in</Link>
+      <div className="mt-4 text-sm text-slate-300">
+        Already have an account? <Link to="/auth/signin" className="text-cyan-300 hover:text-cyan-200">Sign in</Link>
       </div>
     </div>
   )

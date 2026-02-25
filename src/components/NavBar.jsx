@@ -6,19 +6,23 @@ export default function NavBar() {
   const { user, signOut } = useAuth()
   const navigate = useNavigate()
   const onLogout = () => {
-    signOut()
-    navigate('/auth/signin', { replace: true })
+    navigate('/', { replace: true })
+    setTimeout(() => signOut(), 0)
   }
   return (
-    <div className="sticky top-0 z-40 backdrop-blur bg-white/70 border-b">
-      <div className="max-w-5xl mx-auto px-6 h-14 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <div className="h-8 w-8 rounded bg-blue-600 text-white grid place-items-center text-sm font-semibold">IN</div>
-          <div className="font-semibold">Invoice Manager</div>
+    <div className="sticky top-0 z-40 border-b border-slate-800 bg-slate-950/80 backdrop-blur">
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
+        <div className="animate-fade-up flex items-center gap-2">
+          <div className="animate-pulse-glow grid h-8 w-8 place-items-center rounded-lg bg-cyan-400 text-sm font-black text-slate-900">IM</div>
+          <div className="font-semibold tracking-wide text-slate-100">Invoice Manager</div>
         </div>
-        <div className="flex items-center gap-3">
-          <div className="hidden sm:block text-xs text-gray-500">{user?.email}</div>
-          <button onClick={onLogout} className="px-3 py-1.5 rounded-lg border bg-white hover:bg-gray-50 text-sm">Logout</button>
+        <div className="animate-fade-up delay-1 flex items-center gap-3">
+          <div className="hidden rounded-md border border-slate-700 bg-slate-900 px-2.5 py-1 text-xs text-slate-300 sm:block">
+            {user?.email}
+          </div>
+          <button onClick={onLogout} className="btn-secondary px-3 py-1.5 text-sm">
+            Logout
+          </button>
         </div>
       </div>
     </div>
