@@ -250,3 +250,10 @@ Build and deploy `invoice-frontend/dist` (or let Vercel/Netlify build automatica
 ## License
 
 No license file is currently defined in this repository.
+
+
+# Invoice Fullstack
+
+🚀 **Live Demo:** [Click here to test the live application](https://your-live-website-url.com)
+
+A full-stack invoice management application with user authentication, invoice CRUD, payment tracking, and PDF invoice export.
