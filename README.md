@@ -1,8 +1,9 @@
-# Invoice Fullstack
-
-🚀 **Live Demo:** [Click here to test the live application](https://your-live-website-url.com)
-
-A full-stack invoice management application with user authentication, invoice CRUD, payment tracking, and PDF invoice export.
+<p align="center">
+  <a href="https://invomanage.netlify.app/"><img src="https://capsule-render.vercel.app/api?type=rect&color=gradient&customColorList=15,10,25&height=250&section=header&text=Invoice%20Management&fontSize=60&fontColor=ffffff&animation=fadeIn&desc=Full-Stack%20Billing%20and%20PDF%20Generation&descSize=20&descAlignY=75&fontAlignY=40" width="100%" alt="Header" /></a><br>
+  <img src="https://readme-typing-svg.herokuapp.com?font=Share+Tech+Mono&weight=600&size=24&pause=1000&color=39FF14&center=true&vCenter=true&width=600&lines=⚡+React+%7C+Tailwind+%7C+Vite;🔥+Node.js+%7C+Express+%7C+Prisma;🐘+PostgreSQL+%7C+JWT+%7C+PDFKit;🚀+Click+the+Preview+Button+Below!" alt="Tech Stack Animation" /><br><br>
+  <a href="https://invomanage.netlify.app/"><img src="https://img.shields.io/badge/🚀_CLICK_HERE_FOR_LIVE_PREVIEW-000000?style=for-the-badge&logo=vercel&logoColor=white" width="400" alt="Live Preview" /></a>
+</p>
+<hr>
 
 ## Overview
 
